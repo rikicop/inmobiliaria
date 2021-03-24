@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<form action="" method="POST" role="form" class="contactFormu">
+  {% csrf_token %} 
+  <input class="form-control" type="text" name="tipof" value="" placeholder="casa,apartamento,galpón..."><br>
+  
+  <input class="form-control" type="text" name="ubicacionf" value="" placeholder="casco,barrio..."><br>
+  
+  <input class="form-control" type="text" name="edof" value="" placeholder="nuevo,usado..."><br>
+
+  <input class="btn btn-info" type="submit" name="buscador" value="Buscar"></input>
+
+</form>
+<br>
+<div class="row row-cols-1 row-cols-md-3">
+  {% if d %}   
+    {% for i in d %}
+    <div class="col mb-4">
+      <!-- Card -->
+      <div class="card">
+        <!--Card image-->
+        <div class="view overlay">
+          <img class="card-img-top" src="media/{{ i.image }}"
+            alt="Card image cap">
+          <a href="#!">
+            <div class="mask rgba-white-slight"></div>
+          </a>
+        </div>
+        <!--Card content-->
+        <div class="card-body">
+          <!--Title-->
+          <h4 class="card-title">{{i.tipo}}</h4>
+          <!--Text--> 
+          <p class="card-text">{{ i.description }}</p>
+          <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+          <a href="{% url 'detalle' i.id %}" class="btn btn-primary btn-md">Read more</a>
+        </div>
+      </div>
+      <!-- Card -->
+    </div>
+    {% endfor %}
+  {% endif %}
+</div> 
+{% endblock %}
